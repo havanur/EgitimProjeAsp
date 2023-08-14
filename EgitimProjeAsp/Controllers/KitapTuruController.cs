@@ -16,7 +16,7 @@ namespace EgitimProjeAsp.Controllers
         public IActionResult Index()
         {
             List<KitapTuru> objKitapTuruList = _uygulamaDBContext.KitapTuruleri.ToList();       
-            return View();
+            return View(objKitapTuruList);
         }
     }
 }
