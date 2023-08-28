@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace EgitimProjeAsp.Models
 {
@@ -7,7 +8,9 @@ namespace EgitimProjeAsp.Models
         [Key] //primary key
         public int id { get; set; }
 
-        [Required] //not null
+        [Required(ErrorMessage ="Kitap Tür Adı boş bırakılamaz!")] //not null
+        [MaxLength(25)]    
+        [DisplayName("Kitap Türü Adı")]
         public required string Ad { get; set; }
     }
 }

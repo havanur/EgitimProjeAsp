@@ -18,5 +18,31 @@ namespace EgitimProjeAsp.Controllers
             List<KitapTuru> objKitapTuruList = _uygulamaDBContext.KitapTuruleri.ToList();       
             return View(objKitapTuruList);
         }
+
+        public IActionResult Ekle()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Ekle(KitapTuru kitapTuru)
+        {
+
+            _uygulamaDBContext.KitapTuruleri.Add(kitapTuru);
+            _uygulamaDBContext.SaveChanges(); //SaveChange yapılmazsa bilgiler veritabanına eklemez.
+
+            return RedirectToAction("Index", "KitapTuru");
+
+            //if(ModelState.IsValid)
+            //{ 
+
+            //_uygulamaDBContext.KitapTuruleri.Add(kitapTuru);
+            //_uygulamaDBContext.SaveChanges(); //SaveChange yapılmazsa bilgiler veritabanına eklemez.
+
+            //return RedirectToAction("Index","KitapTuru");
+            //}
+            //return View();
+        }
+
     }
 }
