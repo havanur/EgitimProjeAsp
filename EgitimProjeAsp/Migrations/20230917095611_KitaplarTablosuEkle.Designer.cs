@@ -3,6 +3,7 @@ using EgitimProjeAsp.Utility;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EgitimProjeAsp.Migrations
 {
     [DbContext(typeof(UygulamaDBContext))]
-    partial class UygulamaDBContextModelSnapshot : ModelSnapshot
+    [Migration("20230917095611_KitaplarTablosuEkle")]
+    partial class KitaplarTablosuEkle
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -36,13 +39,6 @@ namespace EgitimProjeAsp.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("KitapTuruId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("ResimURL")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Tanim")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -52,8 +48,6 @@ namespace EgitimProjeAsp.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("KitapTuruId");
 
                     b.ToTable("Kitaplar");
                 });
@@ -74,17 +68,6 @@ namespace EgitimProjeAsp.Migrations
                     b.HasKey("id");
 
                     b.ToTable("KitapTuruleri");
-                });
-
-            modelBuilder.Entity("EgitimProjeAsp.Models.Kitap", b =>
-                {
-                    b.HasOne("EgitimProjeAsp.Models.KitapTuru", "KitapTuru")
-                        .WithMany()
-                        .HasForeignKey("KitapTuruId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("KitapTuru");
                 });
 #pragma warning restore 612, 618
         }

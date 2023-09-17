@@ -7,6 +7,7 @@ namespace EgitimProjeAsp.Utility
     {
         public UygulamaDBContext(DbContextOptions<UygulamaDBContext> options):base(options) { } 
         
-        public DbSet<KitapTuru> KitapTuruleri { get; set; }  
+        public DbSet<KitapTuru> KitapTuruleri { get; set; }
+        public DbSet<Kitap> Kitaplar { get; set; }
     }
 }

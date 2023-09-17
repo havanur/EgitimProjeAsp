@@ -3,6 +3,7 @@ using EgitimProjeAsp.Utility;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EgitimProjeAsp.Migrations
 {
     [DbContext(typeof(UygulamaDBContext))]
-    partial class UygulamaDBContextModelSnapshot : ModelSnapshot
+    [Migration("20230917171028_ForeignKeyEkle")]
+    partial class ForeignKeyEkle
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -38,10 +41,6 @@ namespace EgitimProjeAsp.Migrations
 
                     b.Property<int>("KitapTuruId")
                         .HasColumnType("int");
-
-                    b.Property<string>("ResimURL")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Tanim")
                         .IsRequired()

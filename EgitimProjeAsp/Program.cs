@@ -1,3 +1,4 @@
+using EgitimProjeAsp.Models;
 using EgitimProjeAsp.Utility;
 using Microsoft.EntityFrameworkCore;
 
@@ -7,6 +8,12 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddDbContext<UygulamaDBContext>(options=>options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+// _kitapTuruRepository nesnesi oluþuyor =>  Dependency Injention 
+builder.Services.AddScoped<IKitapTuruRepository, KitapTuruRepository>();
+
+builder.Services.AddScoped<IKitapRepository, KitapRepository>();
+
 
 var app = builder.Build();
 
