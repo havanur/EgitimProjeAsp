@@ -13,15 +13,17 @@ namespace EgitimProjeAsp.Controllers
 
         private readonly IKitapRepository _kitapRepository;
         private readonly IKitapTuruRepository _kitapTuruRepository;
+        public readonly IWebHostEnvironment _webHostEnviroment;
 
-        public KitapController(IKitapRepository kitapRepository, IKitapTuruRepository kitapTuruRepository)
+        public KitapController(IKitapRepository kitapRepository, IKitapTuruRepository kitapTuruRepository, IWebHostEnvironment webHostEnviroment)
         {
             _kitapRepository = kitapRepository;
             _kitapTuruRepository = kitapTuruRepository;
+            _webHostEnviroment = webHostEnviroment;
         }
         public IActionResult Index()
         {
-            List<Kitap> objKitapList = _kitapRepository.GetAll().ToList();
+            List<Kitap> objKitapList = _kitapRepository.GetAll(includeProps:"KitapTuru").ToList();
 
 
             return View(objKitapList);
@@ -74,12 +76,41 @@ namespace EgitimProjeAsp.Controllers
 
             //return RedirectToAction("Index", "Kitap");
 
+            var errors=ModelState.Values.SelectMany(x=>x.Errors);
+
             if (ModelState.IsValid)
             {
 
-                _kitapRepository.Ekle(kitap);
+                string wwwRootPath = _webHostEnviroment.WebRootPath;
+                string kitapPath = Path.Combine(wwwRootPath, @"img");
+
+                //if(file=null)
+                //{
+
+
+                //}
+                using (var fileStream = new FileStream(Path.Combine(kitapPath, file.FileName), FileMode.Create))
+                {
+                    file.CopyTo(fileStream);
+                }
+                kitap.ResimURL = @"\img\" + file.FileName;
+
+
+                if (kitap.Id==0)
+                {
+                    _kitapRepository.Ekle(kitap);
+                    TempData["basarili"] = "Yeni Kitap başarılıyla oluşturuldu.";
+                }
+                else
+                {
+                    _kitapRepository.Guncelle(kitap);
+                    TempData["basarili"] = "Kitap güncelleme başarılı";
+                }
+
+
+                
                 _kitapRepository.Kaydet(); //SaveChange yapılmazsa bilgiler veritabanına eklemez.
-                TempData["basarili"] = "Yeni Kitap başarılıyla oluşturuldu.";
+              
                 return RedirectToAction("Index", "Kitap");
             }
             return View();

@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EgitimProjeAsp.Migrations
 {
     [DbContext(typeof(UygulamaDBContext))]
-    [Migration("20230917171028_ForeignKeyEkle")]
-    partial class ForeignKeyEkle
+    [Migration("20230918181806_yeni")]
+    partial class yeni
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -41,6 +41,10 @@ namespace EgitimProjeAsp.Migrations
 
                     b.Property<int>("KitapTuruId")
                         .HasColumnType("int");
+
+                    b.Property<string>("ResimURL")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Tanim")
                         .IsRequired()
