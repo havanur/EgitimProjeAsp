@@ -9,10 +9,14 @@ builder.Services.AddControllersWithViews();
 
 builder.Services.AddDbContext<UygulamaDBContext>(options=>options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
+
+//DÝKKAT: Yeni Repository sýnýf oluþturduðumuzda  mutlaka buraya Services'leri eklemelisin.
 // _kitapTuruRepository nesnesi oluþuyor =>  Dependency Injention 
 builder.Services.AddScoped<IKitapTuruRepository, KitapTuruRepository>();
 
 builder.Services.AddScoped<IKitapRepository, KitapRepository>();
+
+builder.Services.AddScoped<IKiralamaRepository, KiralamaRepository>();
 
 
 var app = builder.Build();
