@@ -1,9 +1,12 @@
 ﻿using EgitimProjeAsp.Models;
 using EgitimProjeAsp.Utility;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Data;
 
 namespace EgitimProjeAsp.Controllers
 {
+    [Authorize(Roles = UserRoles.Role_Admin)]
     public class KitapTuruController : Controller
     {
 

@@ -1,14 +1,16 @@
 ﻿using EgitimProjeAsp.Models;
 using EgitimProjeAsp.Utility;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Linq;
 
 namespace EgitimProjeAsp.Controllers
 {
+    [Authorize(Roles = UserRoles.Role_Admin)]
     public class KiralamaController : Controller
     {
-
+       
         //private readonly UygulamaDBContext _uygulamaDBContext;
 
         private readonly IKiralamaRepository _kiralamaRepository;
