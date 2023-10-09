@@ -1,6 +1,7 @@
 using EgitimProjeAsp.Models;
 using EgitimProjeAsp.Utility;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,9 +10,12 @@ builder.Services.AddControllersWithViews();
 
 builder.Services.AddDbContext<UygulamaDBContext>(options=>options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
+builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<UygulamaDBContext>();
 
-//DÝKKAT: Yeni Repository sýnýf oluþturduðumuzda  mutlaka buraya Services'leri eklemelisin.
-// _kitapTuruRepository nesnesi oluþuyor =>  Dependency Injention 
+builder.Services.AddRazorPages();
+
+//Dï¿½KKAT: Yeni Repository sï¿½nï¿½f oluï¿½turduï¿½umuzda  mutlaka buraya Services'leri eklemelisin.
+// _kitapTuruRepository nesnesi oluï¿½uyor =>  Dependency Injention 
 builder.Services.AddScoped<IKitapTuruRepository, KitapTuruRepository>();
 
 builder.Services.AddScoped<IKitapRepository, KitapRepository>();
@@ -35,6 +39,8 @@ app.UseStaticFiles();
 app.UseRouting();
 
 app.UseAuthorization();
+
+app.MapRazorPages();
 
 app.MapControllerRoute(
     name: "default",
